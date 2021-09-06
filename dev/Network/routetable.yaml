@@ -24,3 +24,4 @@ Outputs:
     Value: !Ref myrttable
     Export:
       Name: rttableid
+      #test
