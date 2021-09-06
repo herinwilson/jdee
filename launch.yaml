@@ -1,0 +1,21 @@
+Resources:
+  jdlaunch:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties: 
+      IamInstanceProfile: role-RootInstanceProfile-1RMX2Y15EH64O
+      ImageId: ami-0db088a545effa00b
+      InstanceType: t3.large
+      LaunchConfigurationName: jdlc
+      SecurityGroups:
+        - sg-0ff456aea7a120a31
+  jdasg:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties: 
+      AutoScalingGroupName: jdasg
+      AvailabilityZones: 
+       - us-east-1a
+      VPCZoneIdentifier: 
+        - subnet-0830f29874768a46c
+      MinSize: 2
+      MaxSize: 2
+      DesiredCapacity: 2

@@ -1,0 +1,26 @@
+Resources:
+  myrttable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !ImportValue vpcid
+      Tags:
+      - Key: Name
+        Value: myrt
+  publicroute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref myrttable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !ImportValue igwid
+  subnetassociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref myrttable
+      SubnetId: !ImportValue subnetid1a
+
+Outputs:
+  rtatbleid:
+    Description: id of route table
+    Value: !Ref myrttable
+    Export:
+      Name: rttableid

@@ -1,0 +1,16 @@
+Resources:
+ myigw:
+  Type: AWS::EC2::InternetGateway
+  Properties:
+    Tags:
+    - Key: env
+      Value: Prod
+    - Key: Name
+      Value: myigw
+
+Outputs:
+  igwo:
+    Description: igw output
+    Value: !Ref myigw
+    Export:
+      Name: myigwid

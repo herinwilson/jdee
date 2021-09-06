@@ -1,0 +1,18 @@
+Resources:
+  jdalarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties: 
+      AlarmDescription: CPU alarm for my asg
+      MetricName: CPUUtilization
+      Namespace: AWS/EC2
+      AlarmActions: 
+        - arn:aws:sns:us-east-1:296769830341:asg
+      Statistic: Average
+      Period: '60'
+      EvaluationPeriods: '3'
+      Threshold: '90'
+      ComparisonOperator: LessThanThreshold
+      Dimensions:
+      - Name: AutoScalingGroupName
+        Value:
+          jdasg

@@ -1,0 +1,20 @@
+Resources:
+  myvpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.4.0.0/16
+      EnableDnsSupport: 'false'
+      EnableDnsHostnames: 'true'
+      InstanceTenancy: "default"
+      Tags:
+      - Key: Name
+        Value: dev-vpc
+      - Key: Dev
+        Value: lab
+
+Outputs:
+  myvpcidoutput:
+    Description: vpc id
+    Value: !Ref myvpc
+    Export:
+      Name: myvpcid

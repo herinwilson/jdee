@@ -1,0 +1,47 @@
+Parameters:
+  MyVPC:
+    Description: VPC to operate in
+    Default: vpc-0733cc2fa94bb8349
+    Type: AWS::EC2::VPC::Id
+  InstanceTy:
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t3.micro
+      - t3.small
+    Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.
+  MySubnetIDs:
+    Description: Subnet IDs that is a List of Subnet Id
+    Default: subnet-0830f29874768a46c
+    Type: AWS::EC2::Subnet::Id
+  Image:
+    Type: String
+    Default: ami-0c2b8ca1dad447f8a
+    AllowedValues:
+      - ami-0c2b8ca1dad447f8a
+      - ami-0b0af3577fe5e3532
+      - ami-09e67e426f25ce0d7
+    Description: Enter select amazon redhat or ubuntu
+  KeyNa:
+    Description: key to access
+    Type: AWS::EC2::KeyPair::KeyName
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      #we reference the InstanceType parameter
+      InstanceType: !Ref InstanceTy
+      KeyName: !Ref KeyNa
+      ImageId: !Ref Image
+      # here we reference an internal CloudFormation resource
+      SubnetId: !Ref MySubnetIDs
+      IamInstanceProfile: role-RootInstanceProfile-1RMX2Y15EH64O
+      AvailabilityZone: us-east-1a
+      SecurityGroupIds:
+        - sg-0ea833a81799dad0e
+      Tags:
+        - Key: "Name"
+          Value: "test"
+        - Key: "Env"
+          Value: "Dev"

@@ -1,0 +1,46 @@
+Parameters:
+  MyVPC:
+    Description: VPC to operate in
+    Type: AWS::EC2::VPC::Id
+Resources:
+  mysubnet1:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      AvailabilityZone: "us-east-1a"
+      CidrBlock: 10.4.4.0/24
+      MapPublicIpOnLaunch: 'true'
+      VpcId:
+          Ref: MyVPC
+      Tags: 
+      - Key: Name
+        Value: dev-subnet-1a
+  mysubnet2:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      AvailabilityZone: "us-east-1b"
+      CidrBlock: 10.4.14.0/24
+      MapPublicIpOnLaunch: 'true'
+      VpcId:
+          Ref: MyVPC
+      Tags: 
+      - Key: Name
+        Value: dev-subnet-1b
+  mysubnet3:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      AvailabilityZone: "us-east-1c"
+      CidrBlock: 10.4.24.0/24
+      MapPublicIpOnLaunch: 'true'
+      VpcId:
+          Ref: MyVPC
+      Tags: 
+      - Key: Name
+        Value: dev-subnet-1c
+
+Outputs:
+  subnetid1:
+    Description: subnet id of my vpc
+    Value: !Ref mysubnet1
+  subnetid2:
+    Description: Subnetid 2
+    Value: !Ref mysubnet2

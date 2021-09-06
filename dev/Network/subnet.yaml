@@ -1,0 +1,61 @@
+Parameters:
+  vpc:
+    Description: Select a vpc
+    Type: AWS::EC2::VPC::Id
+    Default: vpc-0048d40c336af3104
+
+Resources:
+  subnet1a:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1a
+      CidrBlock: 10.4.4.0/24
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !ImportValue vpcid
+      Tags:
+      - Key: Name
+        Value:sub1a
+      - Key: env
+        Value: dev
+  subnet1b:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1b
+      CidrBlock: 10.4.14.0/24
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !ImportValue vpcid
+      Tags:
+      - Key: Name
+        Value: sub1b
+      - Key: env
+        Value: dev
+  subnet1c:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1c
+      CidrBlock: 10.4.24.0/24
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !ImportValue vpcid
+      Tags:
+      - Key: Name
+        Value: sub1c
+      - Key: env
+        Value: dev
+
+Outputs:
+  subnet1aid:
+    Description: id of subnet 1a
+    Value: !Ref subnet1a
+    Export:
+      Name: subnetid1a
+  subnet1bid:
+    Description: id of subnet 1b
+    Value: !Ref subnet1b
+    Export:
+      Name: subnetid1b
+  subnet1cid:
+    Description: id of subnet 1c
+    Value: !Ref subnet1b
+    Export:
+      Name: subnetid1c
+

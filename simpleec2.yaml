@@ -1,0 +1,13 @@
+
+Resources:
+  MyInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: us-east-1a
+      ImageId: ami-0c2b8ca1dad447f8a
+      InstanceType: t2.micro
+      KeyName: key-win
+      SecurityGroupIds: 
+        - sg-0ea833a81799dad0e
+      SubnetId: subnet-0830f29874768a46c
+      IamInstanceProfile: role-RootInstanceProfile-1RMX2Y15EH64O

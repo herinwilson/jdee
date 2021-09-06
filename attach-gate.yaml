@@ -1,0 +1,6 @@
+Resources:
+  Attachgate:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !ImportValue myvpcid
+      InternetGatewayId: !ImportValue myigwid

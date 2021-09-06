@@ -1,0 +1,42 @@
+Resources:
+  linuxsg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: security group for linux
+      GroupName: linuxsg-cf
+      VpcId: !ImportValue vpcid
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+      Tags:
+      - Key: Name
+        Value: linuxsg-cf
+  allport:
+    Type: AWS::EC2::SecurityGroup
+    Properties:  
+      GroupDescription: security group for all
+      GroupName: allport
+      VpcId: !ImportValue vpcid
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 0
+        ToPort: 65535
+        CidrIp: 0.0.0.0/0
+      Tags:
+      - Key: Name
+        Value: all port
+
+Outputs:
+  linuxsgid:
+    Description: id of linuxsg-cf
+    Value: !Ref linuxsg
+    Export:
+      Name: linuxsgid
+  allportid:
+    Description: id of allport
+    Value: !Ref allport
+    Export:
+      Name: allportid
+

@@ -1,0 +1,19 @@
+Resources:
+  myigw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: myigw
+  attachigw:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref myigw
+      VpcId: !ImportValue vpcid
+
+Outputs:
+  igwid:
+    Description: igw id
+    Value: !Ref myigw
+    Export:
+      Name: igwid

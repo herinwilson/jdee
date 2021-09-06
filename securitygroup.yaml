@@ -1,0 +1,67 @@
+Parameters:
+  MyVPC:
+    Type: AWS::EC2::VPC::Id
+Resources:
+  linuxsg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: linux security group
+      GroupName: for linux
+      VpcId:
+        Ref: MyVPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 443
+        ToPort: 443
+        CidrIp: 0.0.0.0/0
+      Tags: 
+        - Key: Name
+          Value: linuxsg
+  windowssg:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: windows sg
+      GroupName: for windows
+      VpcId:
+        Ref: MyVPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 3389
+        ToPort: 3389
+        CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: 443
+        ToPort: 443
+        CidrIp: 0.0.0.0/0
+      Tags: 
+        - Key: Name
+          Value: windowssg
+
+Outputs:
+  vpcid:
+    Description: id of my vpc
+    Value: !GetAtt windowssg.VpcId
+    Export: 
+     Name: vpciddev
+  linuxsgid:
+    Description: sg idof linux
+    Value: !GetAtt linuxsg.GroupId
+    Export:
+      Name: linuxsgid
+  Windowssgid:
+    Description: id of windows sg
+    Value: !GetAtt windowssg.GroupId
+    Export: 
+      Name: windowssgid

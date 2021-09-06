@@ -1,0 +1,34 @@
+
+Resources:
+  LoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Name: jdlb 
+      Subnets: 
+        - subnet-0830f29874768a46c
+        - subnet-0fa681b18287fe37b
+      SecurityGroups:
+        - sg-0ff456aea7a120a31
+      Scheme: internal 
+      Tags:
+        - Key: Name
+          Value: jdlb
+
+  LoadBalancerListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref LoadBalancer
+      Port: 80
+      Protocol: HTTP
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref DefaultTargetGroup
+  
+  DefaultTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: jdtg
+      VpcId: vpc-0733cc2fa94bb8349
+      Port: 80
+      Protocol: HTTP
+

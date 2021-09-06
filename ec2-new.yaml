@@ -1,0 +1,49 @@
+Parameters:
+  Myenv:
+    Description: Select an environment
+    Type: String
+    Default: Dev
+    AllowedValues:
+      - Dev
+      - Prod
+  keys:
+    Description: Select a key
+    Type: AWS::EC2::KeyPair::KeyName
+  vpc:
+    Description: vpcID
+    Type: AWS::EC2::VPC::Id
+  subnet:
+    Description: subnetid
+    Type: AWS::EC2::Subnet::Id
+
+
+Mappings:
+  mytypemap:
+    Dev:
+      instanceType: t2.micro
+    Prod:
+      instanceType: t2.small
+  imagemap:
+   Dev:
+      imageID: ami-0c2b8ca1dad447f8a
+   Prod:
+      imageID: ami-0b0af3577fe5e3532
+
+Resources:
+  myec2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !FindInMap
+        - imagemap
+        - !Ref Myenv
+        - imageID
+      InstanceType: !FindInMap
+        - mytypemap
+        - !Ref Myenv
+        - instanceType
+      KeyName: !Ref keys
+      SubnetId: !Ref subnet
+      SecurityGroupIds:
+        - !ImportValue linuxsgid
+      IamInstanceProfile: role-RootInstanceProfile-1RMX2Y15EH64O
+      AvailabilityZone: us-east-1a

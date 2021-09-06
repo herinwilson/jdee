@@ -1,0 +1,21 @@
+Resources:
+  Mys3:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private 
+      BucketName: heriya
+      LifecycleConfiguration:
+        Rules:
+          - Id: GlacierRule
+            Prefix: glacier
+            Status: Enabled
+            ExpirationInDays: 365
+            Transitions:
+              - TransitionInDays: 90
+                StorageClass: STANDARD_IA
+              - TransitionInDays: 200
+                StorageClass: GLACIER
+              - TransitionInDays: 300
+                StorageClass: DEEP_ARCHIVE
+
+              
